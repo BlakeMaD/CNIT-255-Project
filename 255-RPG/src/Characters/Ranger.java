@@ -11,8 +11,8 @@ package Characters;
  */
 public class Ranger extends PlayableCharacter{
     public Ranger(){
-        setMaxhp(14);
-        setCurrenthp(14);
+        setMaxhp(16);
+        setCurrenthp(16);
         setLevel(1);
         setClassname("Ranger");
         setXp(0);
