@@ -1,6 +1,6 @@
 package Enemies;
 
-public class Bandit etends Enemies
+public class Bandit extends Enemies
 {
     int level = PlayableCharacter.getlevel();
     

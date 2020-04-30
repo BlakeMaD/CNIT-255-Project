@@ -1,6 +1,6 @@
 package Enemies;
 
-public class Goblin etends Enemies
+public class Goblin extends Enemies
 {
     int level = PlayableCharacter.getlevel();
 
@@ -26,3 +26,4 @@ public class Goblin etends Enemies
         setDMG(10);
     }
 }
+

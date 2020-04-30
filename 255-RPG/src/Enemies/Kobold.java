@@ -1,6 +1,6 @@
 package Enemies;
 
-public class Kobold etends Enemies
+public class Kobold extends Enemies
 {
     private int level = PlayableCharacter.getlevel();
 
@@ -26,3 +26,4 @@ public class Kobold etends Enemies
         setDMG(15);
     }
 }
+
