@@ -32,6 +32,26 @@ public abstract class Enemies
 
     public void setXP(int XP)
     {
-        this.xpdrop = xpdrop; 
+        this.xpdrop = XP; 
+    }
+
+    public int getHP()
+    {
+        return HP;
+    }
+
+    public int getAG()
+    {
+        return agility;
+    }
+
+    public int getDMG()
+    {
+        return DMG;
+    }
+
+    public int getXP()
+    {
+        return xpdrop;
     }
 }
