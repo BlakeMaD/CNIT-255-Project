@@ -4,7 +4,6 @@ public abstract class Enemy
 {
     private int HP;
     private int DMG;
-    private int playerlvl = PlayableCharacter.level;
     private  object itemdrop; 
     private int xpdrop;
     private int agility;
