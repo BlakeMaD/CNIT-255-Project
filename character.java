@@ -6,7 +6,7 @@
 
 /**
  *
- * @author lenovo
+ * @author david
  */
 public class character extends javax.swing.JPanel {
 
@@ -26,60 +26,12 @@ public class character extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        AssassinButton = new javax.swing.JButton();
-        MageButton = new javax.swing.JButton();
-        RangerButton = new javax.swing.JButton();
-        WarriorButton = new javax.swing.JButton();
         Return = new javax.swing.JButton();
         CharacterStatScreen = new javax.swing.JTextField();
-
-        AssassinButton.setText("Assassin");
-        AssassinButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                assassin_mouseover(evt);
-            }
-        });
-        AssassinButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AssassinButtonActionPerformed(evt);
-            }
-        });
-
-        MageButton.setText("Mage");
-        MageButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                mage_mouseover(evt);
-            }
-        });
-        MageButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MageButtonPerformed(evt);
-            }
-        });
-
-        RangerButton.setText("Ranger");
-        RangerButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                ranger_mouseover(evt);
-            }
-        });
-        RangerButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RangerButtonPerformed(evt);
-            }
-        });
-
-        WarriorButton.setText("Warrior");
-        WarriorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                warrior_mouseover(evt);
-            }
-        });
-        WarriorButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                WarriorButtonPerformed(evt);
-            }
-        });
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
 
         Return.setText("Back");
         Return.addActionListener(new java.awt.event.ActionListener() {
@@ -96,22 +48,50 @@ public class character extends javax.swing.JPanel {
             }
         });
 
+        jRadioButton1.setText("Assassin");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AssassinButtonPerformed(evt);
+            }
+        });
+
+        jRadioButton2.setText("Mage");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MageButtonPerformed(evt);
+            }
+        });
+
+        jRadioButton3.setText("Ranger");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RangerButtonPerformed(evt);
+            }
+        });
+
+        jRadioButton4.setText("Warrior");
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WarriorButtonPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(WarriorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(RangerButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(MageButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(AssassinButton, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
-                        .addGap(27, 27, 27)
-                        .addComponent(CharacterStatScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioButton2)
+                            .addComponent(jRadioButton3)
+                            .addComponent(jRadioButton4))
+                        .addGap(77, 77, 77)
+                        .addComponent(CharacterStatScreen, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(Return)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -123,24 +103,44 @@ public class character extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(AssassinButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(MageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(RangerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(WarriorButton, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE))
+                        .addGap(15, 15, 15)
+                        .addComponent(jRadioButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton4)
+                        .addGap(0, 105, Short.MAX_VALUE))
                     .addComponent(CharacterStatScreen))
                 .addContainerGap())
         );
+
+        jRadioButton4.getAccessibleContext().setAccessibleName("Warrior");
+        jRadioButton4.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
     
     
-    //selects a class 
-    private void AssassinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AssassinButtonActionPerformed
+    
+    //returns to main menu
+    private void ReturnButtonPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnButtonPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_AssassinButtonActionPerformed
+    }//GEN-LAST:event_ReturnButtonPerformed
+
+    
+    
+    
+    
+    private void CharacterStatScreenUpdate(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CharacterStatScreenUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CharacterStatScreenUpdate
+
+    //character select buttons
+    
+    private void AssassinButtonPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AssassinButtonPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AssassinButtonPerformed
 
     private void MageButtonPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MageButtonPerformed
         // TODO add your handling code here:
@@ -154,44 +154,13 @@ public class character extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_WarriorButtonPerformed
 
-    
-    //returns to main menu
-    private void ReturnButtonPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnButtonPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ReturnButtonPerformed
-
-    
-    //When moused over, the button will display stats onto the characterstat screen
-    private void assassin_mouseover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_assassin_mouseover
-        // TODO add your handling code here:
-    }//GEN-LAST:event_assassin_mouseover
-
-    private void mage_mouseover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mage_mouseover
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mage_mouseover
-
-    private void ranger_mouseover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ranger_mouseover
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ranger_mouseover
-
-    private void warrior_mouseover(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_warrior_mouseover
-        // TODO add your handling code here:
-    }//GEN-LAST:event_warrior_mouseover
-
-    
-    //updates character screen once character mouseovered.
-    
-    private void CharacterStatScreenUpdate(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CharacterStatScreenUpdate
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CharacterStatScreenUpdate
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AssassinButton;
     private javax.swing.JTextField CharacterStatScreen;
-    private javax.swing.JButton MageButton;
-    private javax.swing.JButton RangerButton;
     private javax.swing.JButton Return;
-    private javax.swing.JButton WarriorButton;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
     // End of variables declaration//GEN-END:variables
 }
