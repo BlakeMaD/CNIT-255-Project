@@ -1,38 +1,37 @@
 package Enemies;
+import java.util.concurrent.ThreadLocalRandom;
 
-public abstract class Enemy
+public abstract class Enemies
 {
     private int HP;
     private int DMG;
-    private int playerlvl = PlayableCharacter.level;
-    private  object itemdrop; 
     private int xpdrop;
     private int agility;
 
-    public void setHP(int hp)
+    public void setHP(int HP)
     {
-        this.hp = HP;
+        this.HP = HP;
     }
 
-    public void setDMG(int hit)
+    public void setDMG(int DMG)
     {
-        this.hit = DMG;
+        this.DMG = DMG;
     }
     
-    public giveDMG(DMG)
+    public int giveDMG(int DMG)
     {
         int damage;
-        damage = Random().nextInt(DMG);
+        damage = ThreadLocalRandom.current().nextInt(0, DMG + 1);
         return damage;
     }
     
-    public void setAG(int AG)
+    public void setAG(int agility)
     {
-        this.AG = agility;
+        this.agility = agility;
     }
 
     public void setXP(int XP)
     {
-        this.XP = xpdrop; 
+        this.xpdrop = xpdrop; 
     }
 }
