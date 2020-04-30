@@ -8,6 +8,34 @@ public abstract class Enemies
     private int xpdrop;
     private int agility;
 
+    /**
+     * @return the HP
+     */
+    public int getHP() {
+        return HP;
+    }
+
+    /**
+     * @return the DMG
+     */
+    public int getDMG() {
+        return DMG;
+    }
+
+    /**
+     * @return the xpdrop
+     */
+    public int getXpdrop() {
+        return xpdrop;
+    }
+
+    /**
+     * @return the agility
+     */
+    public int getAgility() {
+        return agility;
+    }
+   
     public void setHP(int HP)
     {
         this.HP = HP;
@@ -32,6 +60,6 @@ public abstract class Enemies
 
     public void setXP(int XP)
     {
-        this.xpdrop = xpdrop; 
+        this.xpdrop = XP; 
     }
 }
