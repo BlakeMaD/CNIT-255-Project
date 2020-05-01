@@ -31,6 +31,7 @@ public class Gameplay extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menu = new javax.swing.JMenu();
         stats = new javax.swing.JMenuItem();
+        Exit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,6 +56,14 @@ public class Gameplay extends javax.swing.JFrame {
             }
         });
         menu.add(stats);
+
+        Exit.setText("Exit");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitActionPerformed(evt);
+            }
+        });
+        menu.add(Exit);
 
         jMenuBar1.add(menu);
 
@@ -345,6 +354,11 @@ public class Gameplay extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_statsActionPerformed
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        System.exit(0);
+        
+    }//GEN-LAST:event_ExitActionPerformed
     public static Warrior player;
     public static Mage player2;
     public static Ranger player3;
@@ -528,6 +542,7 @@ public class Gameplay extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Display;
+    private javax.swing.JMenuItem Exit;
     private javax.swing.JButton attackbtn;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
