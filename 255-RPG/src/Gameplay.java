@@ -1,20 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author blake
- */
+import Characters.*;
+import java.util.*;
+import Enemies.*;
+        
 public class Gameplay extends javax.swing.JFrame {
 
     /**
      * Creates new form Gameplay
+     * @param characterClass
      */
-    public Gameplay() {
+    public static String CharacterClass;
+    
+    public Gameplay(String characterclass) {
         initComponents();
+        CharacterClass = characterclass;
     }
 
     /**
@@ -26,25 +24,105 @@ public class Gameplay extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Display = new javax.swing.JTextArea();
+        attackbtn = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        Display.setColumns(20);
+        Display.setRows(5);
+        jScrollPane1.setViewportView(Display);
+
+        attackbtn.setText("Fight");
+        attackbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                attackbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(132, Short.MAX_VALUE)
+                .addComponent(attackbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(125, 125, 125))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(attackbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void attackbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackbtnActionPerformed
+        //if there is no enemy, the button will say fight, so we change text to Attack and create an enemy
+        if(enemy == null){
+            attackbtn.setText("Attack");
+            createEnemy();
+        } else{
+            
+        }
+        
+        
+    }//GEN-LAST:event_attackbtnActionPerformed
+
+    public static PlayableCharacter player;
+    public static Enemies enemy;
+    public static String enemytype;
+    
+    
+    public static void createPlayer(){ 
+        switch (CharacterClass) {
+            case "Warrior":
+                player = new Warrior();                
+                break;
+            case "Mage":
+                player = new Mage();
+                break;
+            case "Ranger":
+                player = new Ranger();
+                break;
+            case "Assassin":
+                player = new Assassin();
+                break;
+            default:
+                break;
+        }
+    }
+    
+    
+    public static void createEnemy(){
+        Random newEnemy = new Random();
+        int n = newEnemy.nextInt(4);
+        while (n==0){
+            n = newEnemy.nextInt(4);
+        }
+        switch(n){
+            case 1:
+                enemy = new Bandit(player.getLevel());
+                enemytype = "Bandit";
+                break;
+            case 2:
+                enemy = new Kobold(player.getLevel());
+                enemytype = "Kobold";
+                break;
+            case 3:
+                enemy = new Goblin(player.getLevel());
+                enemytype = "Goblin";
+                break;
+        }
+    }
+    
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -72,11 +150,14 @@ public class Gameplay extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Gameplay().setVisible(true);
             }
         });
+        createPlayer();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea Display;
+    private javax.swing.JButton attackbtn;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

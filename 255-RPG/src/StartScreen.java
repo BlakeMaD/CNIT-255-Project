@@ -1,4 +1,3 @@
-import Characters.*;
 
 /**
  *
@@ -174,9 +173,31 @@ public class StartScreen extends javax.swing.JFrame {
             }
         });
     }
+    
+    private String CharacterClass;
+    
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+
+       //finalize character selection to pass to next frame
+       if(Assassinbtn.isSelected())
+       {
+           CharacterClass = "Assassin";
+       }
+       else if(Warriorbtn.isSelected())
+       {
+           CharacterClass = "Warrior";
+       }
+       else if(Magebtn.isSelected())
+       {
+           CharacterClass = "Mage";
+       }
+       else if(Rangerbtn.isSelected())
+       {
+           CharacterClass = "Ranger";
+       }
+       //switch to gameplay frame and pass class selection
        super.setVisible(false);
-       Gameplay screen2 = new Gameplay();
+       Gameplay screen2 = new Gameplay(CharacterClass);
        screen2.setVisible(true);
     }//GEN-LAST:event_startButtonActionPerformed
 
