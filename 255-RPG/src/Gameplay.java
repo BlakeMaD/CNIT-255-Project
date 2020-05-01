@@ -153,7 +153,7 @@ public class Gameplay extends javax.swing.JFrame {
                         Display.append("\n\t" + enemytype + " hit you for " + (enemy.getDMG()- damage_reduction) + " damage!");
                         if(player.getCurrenthp()<=0){
                             attackbtn.setEnabled(false);
-                            Display.setText("\t" + "You have been defeated! Better luck next time.");
+                            Display.setText("\t" + "You have been defeated at Level " + player.getLevel() + "! Better luck next time.");
                         }else
                             Display.append( "\n\t" + "You now have " + player.getCurrenthp() + "HP");
                     }
@@ -205,7 +205,7 @@ public class Gameplay extends javax.swing.JFrame {
                         Display.append("\n\t" + enemytype + " hit you for " + (enemy.getDMG()- damage_reduction) + " damage!");
                         if(player2.getCurrenthp()<=0){
                             attackbtn.setEnabled(false);
-                            Display.setText("\t" + "You have been defeated! Better luck next time.");
+                            Display.setText("\t" + "You have been defeated at Level " + player2.getLevel() + "! Better luck next time.");
                         }else
                             Display.append( "\n\t" + "You now have " + player2.getCurrenthp() + "HP");
                     }
@@ -257,7 +257,7 @@ public class Gameplay extends javax.swing.JFrame {
                         Display.append("\n\t" + enemytype + " hit you for " + (enemy.getDMG()- damage_reduction) + " damage!");
                         if(player3.getCurrenthp()<=0){
                             attackbtn.setEnabled(false);
-                            Display.setText("\t" + "You have been defeated! Better luck next time.");
+                            Display.setText("\t" + "You have been defeated at Level " + player3.getLevel() + "! Better luck next time.");
                         }else
                             Display.append( "\n\t" + "You now have " + player3.getCurrenthp() + "HP");
                     }
@@ -307,7 +307,7 @@ public class Gameplay extends javax.swing.JFrame {
                         Display.append("\n\t" + enemytype + " hit you for " + (enemy.getDMG()- damage_reduction) + " damage!");
                         if(player4.getCurrenthp()<=0){
                             attackbtn.setEnabled(false);
-                            Display.setText("\t" + "You have been defeated! Better luck next time.");
+                            Display.setText("\t" + "You have been defeated at Level " + player4.getLevel() + "! Better luck next time.");
                         }else
                             Display.append( "\n\t" + "You now have " + player4.getCurrenthp() + "HP");
                     }
