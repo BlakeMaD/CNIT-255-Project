@@ -1,6 +1,7 @@
 import Characters.*;
 import java.util.*;
 import Enemies.*;
+import javax.swing.*;
         
 public class Gameplay extends javax.swing.JFrame {
 
@@ -27,9 +28,13 @@ public class Gameplay extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Display = new javax.swing.JTextArea();
         attackbtn = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menu = new javax.swing.JMenu();
+        stats = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        Display.setEditable(false);
         Display.setColumns(20);
         Display.setRows(5);
         jScrollPane1.setViewportView(Display);
@@ -40,6 +45,20 @@ public class Gameplay extends javax.swing.JFrame {
                 attackbtnActionPerformed(evt);
             }
         });
+
+        menu.setText("Menu");
+
+        stats.setText("Check Stats");
+        stats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statsActionPerformed(evt);
+            }
+        });
+        menu.add(stats);
+
+        jMenuBar1.add(menu);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -54,7 +73,8 @@ public class Gameplay extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(attackbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -63,61 +83,413 @@ public class Gameplay extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void attackbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attackbtnActionPerformed
-        //if there is no enemy, the button will say fight, so we change text to Attack and create an enemy
-        if(enemy == null){
-            attackbtn.setText("Attack");
-            createEnemy();
-        } else{
-            
+        
+        //creates player on first run through
+        if(flag){
+            createPlayer();
+            flag = false;
+            Display.setText("Hint:(Click the attack button to deal damage)");
         }
         
-        
+        //if there is no enemy, the button will say fight, so we change text to Attack and create an enemy
+        if(enemy == null){
+            createEnemy();
+            Display.append("\n\t"+ "-A raging " + enemytype + " appears!");
+            attackbtn.setText("Attack");            
+        } else {
+            switch (CharacterClass) {
+                case "Warrior":
+                {
+                    // 1 in 5 chance to miss enemy, otherwise hit and manage enemy health outcome
+                    int hit = rand.nextInt(5);
+                    
+                    if(hit!=0){
+                        //hit enemy for different amount depending on hit roll
+                        if (hit==5){ 
+                            Display.append("\n\t" + "- A Critical Hit!");
+                            enemy.setHP(enemy.getHP()-(player.getAttackdmg()*3));
+                        }else{
+                            enemy.setHP(enemy.getHP()- player.getAttackdmg());
+                        }
+                        
+                        if(enemy.getHP()<=0){
+                            
+                            //handle xp, level up, and hp
+                            player.setCurrenthp(player.getMaxhp());
+                            player.setXp(player.getXp() + enemy.getXpdrop());
+                            Display.setText("\n\t" + "- " +enemytype+ " defeated! You gained " + enemy.getXpdrop() + "XP!");                            
+                            if(player.getXp()>=40){
+                                player.setLevel(player.getLevel()+ 1);
+                                player.setXp(0);
+                                if(player.getLevel()==30){
+                                    Display.setText("\t"+ "You have reached the end of your journey, thanks for playing!");
+                                    attackbtn.setEnabled(false);
+                                }
+                                Display.append("\n\t" + "You Leveled up!");
+                            }
+                            
+                            //reset for next fight
+                            attackbtn.setText("Fight");
+                            enemy = null;                            
+                        } else
+                            Display.append("\n\t" + "- You hit the enemy, they are now at " +  enemy.getHP() + "HP");                    
+                        }else{
+                        Display.append("\n\t" + "- You Missed!");
+                    }
+                   
+                    if(enemy!=null){
+                        //handle taking damage from enemy
+                        int damage_reduction = rand.nextInt(enemy.getDMG());
+                        player.setCurrenthp(player.getCurrenthp() - (enemy.getDMG()- damage_reduction));
+                        Display.append("\n\t" + enemytype + " hit you for " + (enemy.getDMG()- damage_reduction) + " damage!");
+                        if(player.getCurrenthp()<=0){
+                            attackbtn.setEnabled(false);
+                            Display.setText("\t" + "You have been defeated! Better luck next time.");
+                        }else
+                            Display.append( "\n\t" + "You now have " + player.getCurrenthp() + "HP");
+                    }
+                    break;
+                }
+                case "Mage":
+                {
+                   // 1 in 5 chance to miss enemy, otherwise hit and manage enemy health outcome
+                    int hit = rand.nextInt(5);
+                    
+                    if(hit!=0){
+                        //hit enemy for different amount depending on hit roll
+                        if (hit==5){ 
+                            Display.append("\n\t" + "- A Critical Hit!");
+                            enemy.setHP(enemy.getHP()-(player2.getAttackdmg()*3));
+                        }else{
+                            enemy.setHP(enemy.getHP()- player2.getAttackdmg());
+                        }
+                        
+                        if(enemy.getHP()<=0){
+                            
+                            //handle xp, level up, and hp
+                            player2.setCurrenthp(player2.getMaxhp());
+                            player2.setXp(player2.getXp() + enemy.getXpdrop());
+                            Display.setText("\n\t" + "- " +enemytype+ " defeated! You gained " + enemy.getXpdrop() + "XP!");                            
+                            if(player2.getXp()>=40){
+                                player2.setLevel(player2.getLevel()+ 1);
+                                player2.setXp(0);
+                                if(player2.getLevel()==30){
+                                    Display.setText("\t"+ "You have reached the end of your journey, thanks for playing!");
+                                    attackbtn.setEnabled(false);
+                                }
+                                Display.append("\n\t" + "You Leveled up!");
+                            }
+                            
+                            //reset for next fight
+                            attackbtn.setText("Fight");
+                            enemy = null;                            
+                        } else
+                            Display.append("\n\t" + "- You hit the enemy, they are now at " +  enemy.getHP() + "HP");                    
+                        }else{
+                        Display.append("\n\t" + "- You Missed!");
+                    }
+                   
+                    if(enemy!=null){
+                        //handle taking damage from enemy
+                        int damage_reduction = rand.nextInt(enemy.getDMG());
+                        player2.setCurrenthp(player2.getCurrenthp() - (enemy.getDMG()- damage_reduction));
+                        Display.append("\n\t" + enemytype + " hit you for " + (enemy.getDMG()- damage_reduction) + " damage!");
+                        if(player2.getCurrenthp()<=0){
+                            attackbtn.setEnabled(false);
+                            Display.setText("\t" + "You have been defeated! Better luck next time.");
+                        }else
+                            Display.append( "\n\t" + "You now have " + player2.getCurrenthp() + "HP");
+                    }
+                    break;
+                }
+                case "Ranger":
+                {
+                    // 1 in 5 chance to miss enemy, otherwise hit and manage enemy health outcome
+                    int hit = rand.nextInt(5);
+                    
+                    if(hit!=0){
+                        //hit enemy for different amount depending on hit roll
+                        if (hit==5){ 
+                            Display.append("\n\t" + "- A Critical Hit!");
+                            enemy.setHP(enemy.getHP()-(player3.getAttackdmg()*3));
+                        }else {
+                            enemy.setHP(enemy.getHP() - player3.getAttackdmg());
+                        }
+                        
+                        if(enemy.getHP()<=0){
+                            
+                            //handle xp, level up, and hp
+                            player3.setCurrenthp(player3.getMaxhp());
+                            player3.setXp(player3.getXp() + enemy.getXpdrop());
+                            Display.setText("\n\t" + "- " +enemytype+ " defeated! You gained " + enemy.getXpdrop() + "XP!");                            
+                            if(player3.getXp()>=40){
+                                player3.setLevel(player3.getLevel()+ 1);
+                                player3.setXp(0);
+                                if(player3.getLevel()==30){
+                                    Display.setText("\t"+ "You have reached the end of your journey, thanks for playing!");
+                                    attackbtn.setEnabled(false);
+                                }
+                                Display.append("\n\t" + "You Leveled up!");
+                            }
+                            
+                            //reset for next fight
+                            attackbtn.setText("Fight");
+                            enemy = null;                            
+                        } else
+                            Display.append("\n\t" + "- You hit the enemy, they are now at " +  enemy.getHP() + "HP");                    
+                        }else{
+                        Display.append("\n\t" + "- You Missed!");
+                    }
+                   
+                    if(enemy!=null){
+                        //handle taking damage from enemy
+                        int damage_reduction = rand.nextInt(enemy.getDMG());
+                        player3.setCurrenthp(player3.getCurrenthp() - (enemy.getDMG()- damage_reduction));
+                        Display.append("\n\t" + enemytype + " hit you for " + (enemy.getDMG()- damage_reduction) + " damage!");
+                        if(player3.getCurrenthp()<=0){
+                            attackbtn.setEnabled(false);
+                            Display.setText("\t" + "You have been defeated! Better luck next time.");
+                        }else
+                            Display.append( "\n\t" + "You now have " + player3.getCurrenthp() + "HP");
+                    }
+                    break;
+                }
+                case "Assassin":
+                {
+                    // 1 in 5 chance to miss enemy, otherwise hit and manage enemy health outcome
+                    int hit = rand.nextInt(5);
+                    
+                    if(hit!=0){
+                        //hit enemy for different amount depending on hit roll
+                        if (hit==5){ 
+                            Display.append("\n\t" + "- A Critical Hit!");
+                            enemy.setHP(enemy.getHP()-(player4.getAttackdmg()*3));
+                        }else enemy.setHP(enemy.getHP()-player4.getAttackdmg());
+                        
+                        if(enemy.getHP()<=0){
+                            
+                            //handle xp, level up, and hp
+                            player4.setCurrenthp(player4.getMaxhp());
+                            player4.setXp(player4.getXp() + enemy.getXpdrop());
+                            Display.setText("\n\t" + "- " +enemytype+ " defeated! You gained " + enemy.getXpdrop() + "XP!");                            
+                            if(player4.getXp()>=40){
+                                player4.setLevel(player4.getLevel()+ 1);
+                                player4.setXp(0);
+                                if(player4.getLevel()==30){
+                                    Display.setText("\t"+ "You have reached the end of your journey, thanks for playing!");
+                                    attackbtn.setEnabled(false);
+                                }
+                                Display.append("\n\t" + "You Leveled up!");
+                            }
+                            
+                            //reset for next fight
+                            attackbtn.setText("Fight");
+                            enemy = null;                            
+                        } else
+                            Display.append("\n\t" + "- You hit the enemy, they are now at " +  enemy.getHP() + "HP");                    
+                        }else{
+                        Display.append("\n\t" + "- You Missed!");
+                    }
+                   
+                    if(enemy!=null){
+                        //handle taking damage from enemy
+                        int damage_reduction = rand.nextInt(enemy.getDMG());
+                        player4.setCurrenthp(player4.getCurrenthp() - (enemy.getDMG()- damage_reduction));
+                        Display.append("\n\t" + enemytype + " hit you for " + (enemy.getDMG()- damage_reduction) + " damage!");
+                        if(player4.getCurrenthp()<=0){
+                            attackbtn.setEnabled(false);
+                            Display.setText("\t" + "You have been defeated! Better luck next time.");
+                        }else
+                            Display.append( "\n\t" + "You now have " + player4.getCurrenthp() + "HP");
+                    }
+                    break;
+                }
+            }
+        }
     }//GEN-LAST:event_attackbtnActionPerformed
 
-    public static PlayableCharacter player;
-    public static Enemies enemy;
+    private void statsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statsActionPerformed
+        if(flag){
+            Display.append("\nStart fight to view stats");
+            
+        }else{
+            switch(CharacterClass){
+                case "Warrior":
+                {
+                    JOptionPane.showMessageDialog(Display.getTopLevelAncestor(),"Hp: " + player.getCurrenthp() + "\nMaxHp: " +
+                            player.getMaxhp() + "\nDmg: " + player.getAttackdmg() + "\nLvl: " + player.getLevel() + "\nClass: "
+                            + CharacterClass + "\nXP to next Lvl: " + (40-player.getXp()),"Stats",JOptionPane.PLAIN_MESSAGE);
+                    break;
+                }
+                case "Mage":
+                {
+                    JOptionPane.showMessageDialog(Display.getTopLevelAncestor(),"Hp: " + player2.getCurrenthp() + "\nMaxHp: " +
+                            player2.getMaxhp() + "\nDmg: " + player2.getAttackdmg() + "\nLvl: " + player2.getLevel() + "\nClass: "
+                            + CharacterClass + "\nXP to next Lvl: " + (40-player2.getXp()),"Stats",JOptionPane.PLAIN_MESSAGE);
+                    break;
+                }
+                case "Ranger":
+                {
+                    JOptionPane.showMessageDialog(Display.getTopLevelAncestor(),"Hp: " + player3.getCurrenthp() + "\nMaxHp: " +
+                            player3.getMaxhp() + "\nDmg: " + player3.getAttackdmg() + "\nLvl: " + player3.getLevel() + "\nClass: "
+                            + CharacterClass + "\nXP to next Lvl: " + (40-player3.getXp()),"Stats",JOptionPane.PLAIN_MESSAGE);
+                    break;
+                }
+                case "Assassin":
+                {
+                    JOptionPane.showMessageDialog(Display.getTopLevelAncestor(),"Hp: " + player4.getCurrenthp() + "\nMaxHp: " +
+                            player4.getMaxhp() + "\nDmg: " + player4.getAttackdmg() + "\nLvl: " + player4.getLevel() + "\nClass: "
+                            + CharacterClass + "\nXP to next Lvl: " + (40-player4.getXp()),"Stats",JOptionPane.PLAIN_MESSAGE);
+                    break;
+                }
+            }
+        }
+    }//GEN-LAST:event_statsActionPerformed
+    public static Warrior player;
+    public static Mage player2;
+    public static Ranger player3;
+    public static Assassin player4;
+    public Enemies enemy;
     public static String enemytype;
+    public boolean flag = true;
+    public static Random rand = new Random();
     
-    
-    public static void createPlayer(){ 
+    public void createPlayer(){ 
         switch (CharacterClass) {
             case "Warrior":
+            {
                 player = new Warrior();                
                 break;
+            }
             case "Mage":
-                player = new Mage();
+            {
+                player2 = new Mage();
                 break;
+            }
             case "Ranger":
-                player = new Ranger();
+            {
+                player3 = new Ranger();
                 break;
+            }
             case "Assassin":
-                player = new Assassin();
+            {
+                player4 = new Assassin();
                 break;
-            default:
-                break;
+            }
         }
     }
     
     
-    public static void createEnemy(){
-        Random newEnemy = new Random();
-        int n = newEnemy.nextInt(4);
-        while (n==0){
-            n = newEnemy.nextInt(4);
-        }
-        switch(n){
-            case 1:
-                enemy = new Bandit(player.getLevel());
-                enemytype = "Bandit";
-                break;
-            case 2:
-                enemy = new Kobold(player.getLevel());
-                enemytype = "Kobold";
-                break;
-            case 3:
-                enemy = new Goblin(player.getLevel());
-                enemytype = "Goblin";
-                break;
+    public void createEnemy(){
+        if(null != CharacterClass)switch (CharacterClass) {
+            case "Warrior":{
+                    Random newEnemy = new Random();
+                    int n = newEnemy.nextInt(4);
+                    while (n==0){
+                        n = newEnemy.nextInt(4);
+                    }       switch(n){
+                        case 1:
+                        {
+                            enemy = new Bandit(player.getLevel());
+                            enemytype = "Bandit";
+                            break;
+                        }
+                        case 2:
+                        {
+                            enemy = new Kobold(player.getLevel());
+                            enemytype = "Kobold";
+                            break;
+                        }
+                        case 3:
+                        {
+                            enemy = new Goblin(player.getLevel());
+                            enemytype = "Goblin";
+                            break;
+                        }
+                    }
+                    break;
+                }
+            case "Mage":{
+                    Random newEnemy = new Random();
+                    int n = newEnemy.nextInt(4);
+                    while (n==0){
+                        n = newEnemy.nextInt(4);
+                    }       switch(n){
+                        case 1:
+                        {
+                            enemy = new Bandit(player2.getLevel());
+                            enemytype = "Bandit";
+                            break;
+                        }
+                        case 2:
+                        {
+                            enemy = new Kobold(player2.getLevel());
+                            enemytype = "Kobold";
+                            break;
+                        }
+                        case 3:
+                        {
+                            enemy = new Goblin(player2.getLevel());
+                            enemytype = "Goblin";
+                            break;
+                        }
+                    }
+                    break;
+                }
+            case "Ranger":{
+                    Random newEnemy = new Random();
+                    int n = newEnemy.nextInt(4);
+                    while (n==0){
+                        n = newEnemy.nextInt(4);
+                    }       switch(n){
+                        case 1:
+                        {
+                            enemy = new Bandit(player3.getLevel());
+                            enemytype = "Bandit";
+                            break;
+                        }
+                        case 2:
+                        {
+                            enemy = new Kobold(player3.getLevel());
+                            enemytype = "Kobold";
+                            break;
+                        }
+                        case 3:
+                        {
+                            enemy = new Goblin(player3.getLevel());
+                            enemytype = "Goblin";
+                            break;
+                        }
+                    }
+                    break;
+                }
+            case "Assassin":{
+                    Random newEnemy = new Random();
+                    int n = newEnemy.nextInt(4);
+                    while (n==0){
+                        n = newEnemy.nextInt(4);
+                    }       switch(n){
+                        case 1:
+                        {
+                            enemy = new Bandit(player4.getLevel());
+                            enemytype = "Bandit";
+                            break;
+                        }
+                        case 2:
+                        {
+                            enemy = new Kobold(player4.getLevel());
+                            enemytype = "Kobold";
+                            break;
+                        }
+                        case 3:
+                        {
+                            enemy = new Goblin(player4.getLevel());
+                            enemytype = "Goblin";
+                            break;
+                        }
+                    }
+                    break;
+                }
         }
     }
     
@@ -152,12 +524,14 @@ public class Gameplay extends javax.swing.JFrame {
             public void run() {
             }
         });
-        createPlayer();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Display;
     private javax.swing.JButton attackbtn;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenu menu;
+    private javax.swing.JMenuItem stats;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,23 +7,23 @@ public class Kobold extends Enemies
         if (level < 10)
         {
             setHP(20);
-            setAG(10);
+            
             setXP(15);
-            setDMG(5);
+            setDMG(3);
         }
         else if (level < 20 && level >= 10)
         {
             setHP(30);
-            setAG(15);
-            setXP(35);
-            setDMG(10);
+            
+            setXP(8);
+            setDMG(5);
         }
         else if (level < 30 && level >= 20)
         {
-            setHP(45);
-            setAG(25);
-            setXP(60);
-            setDMG(15);
+            setHP(40);
+            
+            setXP(4);
+            setDMG(7);
         }
     }
 }
